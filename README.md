@@ -1,6 +1,6 @@
-# Better Auth Starter 🚀
+# Botify 🚀
 
-Better Auth Starter is a Next.js 15 boilerplate with built-in authentication using **BetterAuth**. It supports **Google Login** and **BetterAuth credentials**, providing a solid foundation for any Next.js project requiring authentication.
+Botify is a modern **Whatsapp Automation** system built with Next.js 15, featuring authentication  and a sleek UI using Tailwind CSS and ShadCN.
 
 ## ✨ Features
 
@@ -64,5 +64,5 @@ The app will be available at http://localhost:3000.
 Check out the live version: [Auth Starter](https://better-auth-livid.vercel.app/)
 
 
-# Built by Aayush Ghimire
+# Developed by Milan Pramod
 
