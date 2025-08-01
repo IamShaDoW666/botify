@@ -60,9 +60,5 @@ bun dev
 
 The app will be available at http://localhost:3000.
 
-## 🔗 Live Demo
-Check out the live version: [Auth Starter](https://better-auth-livid.vercel.app/)
-
-
 # Developed by Milan Pramod
 
