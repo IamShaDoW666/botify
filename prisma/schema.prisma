@@ -78,6 +78,12 @@ enum DeviceStatus {
 }
 
 enum BlastType {
+  AutoReply
+  Campaign
+  Remote
+}
+
+enum MessageType {
   Text
   Image
 }
@@ -100,12 +106,13 @@ model Device {
 }
 
 model Blast {
-  id         String      @id @default(uuid())
-  type       BlastType
-  status     BlastStatus @default(Pending)
-  campaign   Campaign    @relation(fields: [campaignId], references: [id])
-  campaignId String
-  contactId  String?
+  id          String      @id @default(uuid())
+  type        BlastType
+  messageType MessageType
+  status      BlastStatus @default(Pending)
+  campaign    Campaign?   @relation(fields: [campaignId], references: [id])
+  campaignId  String?
+  contactId   String?
 }
 
 model Contact {
@@ -131,14 +138,15 @@ model ContactGroup {
 }
 
 model Campaign {
-  id           String    @id @default(uuid())
+  id           String      @id @default(uuid())
   name         String
   senderNumber String
   userId       String
+  campaignType MessageType
   description  String?
   blasts       Blast[]
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   scheduledAt  DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 }

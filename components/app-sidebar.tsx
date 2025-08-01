@@ -15,6 +15,7 @@ import {
 import SignOutForm from "./sign-out-form"
 import Logo from "./logo"
 import { usePathname } from "next/navigation"
+import { NavUser } from "./nav-user"
 
 export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
@@ -48,7 +49,7 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter>
-        <SignOutForm />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
