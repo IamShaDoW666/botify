@@ -3,6 +3,7 @@ import { Noto_Sans_KR } from 'next/font/google';
 import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "next-themes";
 
 const notoSansKR = Noto_Sans_KR({
   weight: ['300', '400', '500', '700'],
@@ -12,8 +13,8 @@ const notoSansKR = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: "Better Auth Starter",
-  description: "Next.js + Better Auth + Shadcn UI + Tailwind CSS",
+  title: "Botify",
+  description: "Whatsapp automation tool for businesses",
   icons: {
     icon: '/logo.png'
   }
@@ -27,14 +28,20 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${notoSansKR.variable}`} suppressHydrationWarning>
       <body
-        className={` antialiased`}
+        className={`antialiased`}
       >
-        <NextTopLoader showSpinner={false} height={6} color="#000000" />
-        <Toaster richColors position="top-right" />
-        <main className="min-h-screen">
-          {children}
-        </main>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange>
+          <NextTopLoader showSpinner={false} height={6} />
+          <Toaster richColors position="top-right" />
+          <main className="min-h-screen">
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
-    </html>
+    </html >
   );
 }
