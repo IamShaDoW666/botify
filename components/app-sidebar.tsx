@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { LayoutDashboard, TabletSmartphoneIcon } from "lucide-react"
+import { LayoutDashboard, Send, TabletSmartphoneIcon } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -43,6 +43,16 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                   <TabletSmartphoneIcon />
                 </div>
                 <span className={`text-sm font-medium`}>Devices</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton isActive={pathname.startsWith('/send-message')} size="lg">
+              <Link href="/send-message" className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10">
+                  <Send />
+                </div>
+                <span className={`text-sm font-medium`}>Send Message</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

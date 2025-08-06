@@ -4,6 +4,8 @@ import QRCode from 'react-qr-code';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { io, Socket } from 'socket.io-client';
+import { SocketEvent } from '@/types';
+import Image from 'next/image';
 let socket: Socket;
 const InfoItem = ({ label, value }: { label: string, value: string }) => (
   <div className="flex justify-between items-center py-2">
@@ -17,18 +19,30 @@ const WhatsappScannerPage = ({ params }: {
 }) => {
   const { id: sessionId } = use(params)
   const [qrCode, setQrCode] = useState<string | null>(null);
-  const [status, setStatus] = useState('Disconnected');
+  const [status, setStatus] = useState('');
+  const [profilePic, setProfilePic] = useState('');
 
   useEffect(() => {
-    // Get the socket server URL from environment variables
     const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001';
 
-    // Connect to the separate Socket.IO server
     socket = io(socketUrl);
 
     socket.on('qr-update', (message: string) => {
-      console.log(message);
-      setQrCode(message);
+      const data = JSON.parse(message) as SocketEvent
+      console.log(data);
+      if (data.event == "QR") {
+        setQrCode(data.qr!);
+        setProfilePic('');
+        setStatus('Disconnected');
+      } else if (data.event == "OPEN") {
+        setQrCode(null);
+        setProfilePic(data.profile || '');
+        setStatus('Connected');
+      } else if (data.event == "LOGOUT") {
+        setQrCode(null);
+        setProfilePic('');
+        setStatus('Disconnected');
+      }
     });
 
     socket.emit('subscribe-to-qr', { sessionId });
@@ -45,28 +59,30 @@ const WhatsappScannerPage = ({ params }: {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 md:p-8">
+    <div className="flex flex-col items-center justify-center min-h-screen  p-4 sm:p-6 md:p-8">
       <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
 
         {/* QR Code Scanner Section */}
         <Card className="w-full max-w-lg mx-auto rounded-xl shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl font-bold text-center">Scan QR Code</CardTitle>
-            <CardDescription className="text-center text-gray-500 dark:text-gray-400">
+            <CardDescription className="text-center">
               To link your WhatsApp account, scan this code with your phone.
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col items-center justify-center p-6">
-            <div className=" bg-white p-4 rounded-lg flex items-center justify-center">
-              {qrCode && (
+            {qrCode && (
+              <div className="bg-white p-4 rounded-lg flex items-center justify-center">
                 <QRCode level="M" value={qrCode} />
-              )}
-              {!qrCode && (
-                <div className="text-gray-500 dark:text-gray-400">
-                  <span>Loading..</span>
-                </div>
-              )}
-            </div>
+              </div>
+            )}
+            {profilePic && (
+              <Image width={450} height={450} src={profilePic} alt='Profile' />)}
+            {(!qrCode && status != "Connected") && (
+              <span>Loading..</span>
+            )}
+            {status === 'Connected' && (<div className="text-green-500 mt-4">Connected Successfully!</div>)}
+            {status === 'Disconnected' && (<div className="text-red-500 mt-4">Disconnected. Please try again.</div>)}
             <p className="mt-4 text-xs text-gray-400 dark:text-gray-500">
               Need help? <a href="#" className="underline">Learn how to connect</a>.
             </p>
