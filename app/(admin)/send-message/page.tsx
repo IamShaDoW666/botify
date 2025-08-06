@@ -1,4 +1,5 @@
 "use client"
+import { sendMessage } from "@/actions/message"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -6,7 +7,10 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { sendMessageSchema, SendMessageValues } from "@/types"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useMutation } from "@tanstack/react-query"
+import { Send } from "lucide-react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 
 const SendMessagePage = () => {
   const form = useForm({
@@ -16,12 +20,27 @@ const SendMessagePage = () => {
       message: ''
     }
   })
-  const onSubmit = (data: SendMessageValues) => {
-    console.log(data)
+  const { mutate, isPending } = useMutation({
+    mutationFn: sendMessage,
+    onSuccess: (res) => {
+      if (res.status) {
+        toast.success(res.message);
+        form.resetField("message")
+      }
+    },
+    onError: () => {
+      toast.error("Failed to send message");
+    }
+  })
+  const onSubmit = async (data: SendMessageValues) => {
+    mutate({
+      message: data.message,
+      receiver: data.number,
+      sender: '919495722263'
+    })
   }
   return (
     <div className="flex flex-col items-center justify-center min-h-screen  p-4 sm:p-6 md:p-8">
-      {/* <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8"> */}
       <Card className="w-full max-w-lg mx-auto rounded-xl shadow-lg">
         <CardHeader>Send Message</CardHeader>
         <CardContent>
@@ -30,18 +49,18 @@ const SendMessagePage = () => {
               <div className="grid grid-cols-1 gap-4">
                 <FormField name="number" render={({ field }) => (
                   <FormItem>
-                    <FormLabel>number</FormLabel>
+                    <FormLabel>Number</FormLabel>
                     <FormControl>
-                      <Input placeholder="number" {...field} />
+                      <Input type="tel" placeholder="Number" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )} />
                 <FormField name="message" render={({ field }) => (
                   <FormItem>
-                    <FormLabel>message</FormLabel>
+                    <FormLabel>Message</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="type your message..." {...field} />
+                      <Textarea placeholder="Type your message..." {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -50,11 +69,13 @@ const SendMessagePage = () => {
             </form>
           </Form>
         </CardContent>
-        <CardFooter>
-          <Button onClick={form.handleSubmit(onSubmit)}>Send</Button>
+        <CardFooter className="flex justify-end">
+          <Button disabled={isPending} onClick={form.handleSubmit(onSubmit)}>
+            Send
+            <Send />
+          </Button>
         </CardFooter>
       </Card>
-      {/* </div> */}
     </div>
   )
 }

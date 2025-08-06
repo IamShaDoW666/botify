@@ -4,6 +4,7 @@ import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "next-themes";
+import { QueryProvider } from "@/providers/query-provider";
 
 const notoSansKR = Noto_Sans_KR({
   weight: ['300', '400', '500', '700'],
@@ -30,17 +31,19 @@ export default function RootLayout({
       <body
         className={`antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange>
-          <NextTopLoader showSpinner={false} height={6} />
-          <Toaster richColors position="top-right" />
-          <main className="min-h-screen">
-            {children}
-          </main>
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange>
+            <NextTopLoader showSpinner={false} height={6} />
+            <Toaster richColors position="top-right" />
+            <main className="min-h-screen">
+              {children}
+            </main>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html >
   );

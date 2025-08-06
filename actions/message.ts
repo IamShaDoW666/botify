@@ -1,0 +1,42 @@
+"use server"
+
+import { QUEUE_NAME } from "@/lib/constants/global"
+import { redis } from "@/lib/redis";
+import { sendMessageSchema, WhatsappJob } from "@/types";
+import { Queue } from "bullmq"
+import { NextResponse } from "next/server";
+import z from "zod";
+
+const sendMessageZSchema = z.object({
+  message: z.string().min(1, "Message is required"),
+  receiver: z.string().min(1, "Receiver number is required"),
+  sender: z.string().min(1, "Sender number is required")
+})
+
+
+interface Props {
+  message: string;
+  receiver: string;
+  sender: string;
+}
+export const sendMessage = async (data: Props) => {
+  const validated = z.safeParse(sendMessageZSchema, data)
+  if (validated.success === false) {
+    throw new Error("Invalid data: " + JSON.stringify(validated.error));
+  }
+  try {
+    const queue = new Queue<WhatsappJob>(QUEUE_NAME, { connection: redis });
+    await queue.add('send-message', {
+      type: 'send-message',
+      sender: validated.data.sender,
+      receiver: validated.data.receiver,
+      message: validated.data.message,
+    })
+  } catch (error) {
+    throw new Error("Failed to send message: " + error);
+  }
+  return {
+    status: true,
+    message: "Message queued successfully"
+  }
+}
