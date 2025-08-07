@@ -1,23 +1,35 @@
 "use client"
 
-import Link from "next/link"
-import { LayoutDashboard, Send, TabletSmartphoneIcon } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuItem,
   SidebarMenuButton,
+  SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
-import SignOutForm from "./sign-out-form"
-import Logo from "./logo"
+import { LayoutDashboard, Send, TabletSmartphoneIcon } from "lucide-react"
+import Link from "next/link"
 import { usePathname } from "next/navigation"
+import Logo from "./logo"
 import { NavUser } from "./nav-user"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select"
+import { useQuery } from "@tanstack/react-query"
+import { getDevices } from "@/actions/device"
+import { useDeviceStore } from "@/hooks/store/device-store"
+import { useEffect } from "react"
 
 export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { device: currentDevice, setDevice, setInitialState } = useDeviceStore();
+  const { data: devices } = useQuery({
+    queryKey: ['devices'],
+    queryFn: getDevices,
+  });
+  useEffect(() => {
+    setInitialState(devices?.map((device) => device.body) || []);
+  }, [])
   const pathname = usePathname();
   return (
     <Sidebar collapsible="offcanvas" {...props}>
@@ -45,6 +57,21 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                 <span className={`text-sm font-medium`}>Devices</span>
               </Link>
             </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <Select onValueChange={(val) => setDevice(val)} defaultValue={currentDevice!}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select Device" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Devices</SelectLabel>
+                  {devices?.map((device) => (
+                    (<SelectItem value={device.body} key={device.id} >{device.body}</SelectItem>)
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton isActive={pathname.startsWith('/send-message')} size="lg">

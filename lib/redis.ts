@@ -8,22 +8,39 @@ import Redis from 'ioredis';
 //   db: 0, // Defaults to 0
 //   maxRetriesPerRequest: null
 // })
+// export const redis = new Redis({
+//   port: 19327,
+//   host: "redis-19327.c212.ap-south-1-1.ec2.redns.redis-cloud.com",
+//   username: "default",
+//   password: "O3dtw8l8mkxs7iJGz2JQLxwHainPsQch",
+//   db: 0, // Defaults to 0
+//   maxRetriesPerRequest: null
+// })
+//
+//
+// export const subscriber = new Redis({
+//   port: 19327,
+//   host: "redis-19327.c212.ap-south-1-1.ec2.redns.redis-cloud.com",
+//   username: "default",
+//   password: "O3dtw8l8mkxs7iJGz2JQLxwHainPsQch",
+//   db: 0, // Defaults to 0
+//   maxRetriesPerRequest: null
+// })
+
 export const redis = new Redis({
-  port: 19327,
-  host: "redis-19327.c212.ap-south-1-1.ec2.redns.redis-cloud.com",
-  username: "default",
-  password: "O3dtw8l8mkxs7iJGz2JQLxwHainPsQch",
+  port: 6379,
+  host: "localhost",
+  // password: "O3dtw8l8mkxs7iJGz2JQLxwHainPsQch",
   db: 0, // Defaults to 0
   maxRetriesPerRequest: null
 })
-
 
 export const subscriber = new Redis({
-  port: 19327,
-  host: "redis-19327.c212.ap-south-1-1.ec2.redns.redis-cloud.com",
-  username: "default",
-  password: "O3dtw8l8mkxs7iJGz2JQLxwHainPsQch",
+  port: 6379,
+  host: "localhost",
+  // password: "O3dtw8l8mkxs7iJGz2JQLxwHainPsQch",
   db: 0, // Defaults to 0
   maxRetriesPerRequest: null
 })
+
 

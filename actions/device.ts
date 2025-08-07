@@ -7,6 +7,23 @@ import { DeviceCreateValues } from "@/types"
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 
+export const getDevices = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers()
+  })
+  if (!session?.user) {
+    throw new Error("User not authenticated");
+  }
+
+  const devices = await prisma.device.findMany({
+    where: {
+      userId: session.user.id
+    }
+  })
+
+  return devices;
+}
+
 export const addDevice = async (data: DeviceCreateValues) => {
   const { number } = data;
   const session = await auth.api.getSession({

@@ -5,6 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { useDeviceStore } from "@/hooks/store/device-store"
 import { sendMessageSchema, SendMessageValues } from "@/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
@@ -13,6 +14,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
 const SendMessagePage = () => {
+  const { device: currentDevice } = useDeviceStore();
   const form = useForm({
     resolver: zodResolver(sendMessageSchema),
     defaultValues: {
@@ -36,7 +38,7 @@ const SendMessagePage = () => {
     mutate({
       message: data.message,
       receiver: data.number,
-      sender: '919495722263'
+      sender: currentDevice!
     })
   }
   return (
@@ -49,18 +51,18 @@ const SendMessagePage = () => {
               <div className="grid grid-cols-1 gap-4">
                 <FormField name="number" render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Number</FormLabel>
+                    <FormLabel>number</FormLabel>
                     <FormControl>
-                      <Input type="tel" placeholder="Number" {...field} />
+                      <Input type="tel" placeholder="number" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )} />
                 <FormField name="message" render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Message</FormLabel>
+                    <FormLabel>message</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Type your message..." {...field} />
+                      <Textarea placeholder="type your message..." {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

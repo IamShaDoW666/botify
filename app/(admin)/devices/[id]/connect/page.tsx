@@ -52,10 +52,10 @@ const WhatsappScannerPage = ({ params }: {
     };
   }, []);
   const userInfo = {
-    name: "Jane Doe",
-    phone: "+1 (234) 567-8900",
+    name: "Ahgem",
+    phone: "+917034983527",
     status: "Coding my way through the world!",
-    avatarUrl: "https://placehold.co/100x100/EFEFEF/333?text=JD",
+    avatarUrl: "https://placehold.co/100x100/EFEFEF/333?text=MJ",
   };
 
   return (

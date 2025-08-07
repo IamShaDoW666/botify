@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { FormField, FormItem, FormLabel, FormControl, Form } from "@/components/ui/form";
+import { FormField, FormItem, FormLabel, FormControl, Form, FormMessage } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import {
   Dialog,
@@ -58,6 +58,7 @@ const AddDeviceModal = () => {
                     <FormLabel>Device Number</FormLabel>
                     <FormControl>
                       <Input {...field} placeholder="Number" />
+                      <FormMessage />
                     </FormControl>
                   </FormItem>
                 )} />

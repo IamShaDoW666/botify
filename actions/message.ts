@@ -2,15 +2,15 @@
 
 import { QUEUE_NAME } from "@/lib/constants/global"
 import { redis } from "@/lib/redis";
-import { sendMessageSchema, WhatsappJob } from "@/types";
+import { phoneNumberSchema, sendMessageSchema, WhatsappJob } from "@/types";
 import { Queue } from "bullmq"
 import { NextResponse } from "next/server";
 import z from "zod";
 
 const sendMessageZSchema = z.object({
   message: z.string().min(1, "Message is required"),
-  receiver: z.string().min(1, "Receiver number is required"),
-  sender: z.string().min(1, "Sender number is required")
+  receiver: phoneNumberSchema,
+  sender: phoneNumberSchema
 })
 
 

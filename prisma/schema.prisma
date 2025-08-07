@@ -97,7 +97,7 @@ enum BlastStatus {
 model Device {
   id           String       @id @default(uuid())
   messagesSent Int          @default(0)
-  body         String
+  body         String       @unique
   status       DeviceStatus @default(Disconnected)
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
