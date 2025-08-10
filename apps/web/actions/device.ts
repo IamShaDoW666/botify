@@ -6,6 +6,10 @@ import { prisma } from "@repo/db";
 import { DeviceCreateValues } from "@/types"
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
+import { Queue } from "bullmq";
+import { WhatsappJob } from "@repo/types";
+import { QUEUE_NAME } from "@/lib/constants/global";
+import { redis } from "@repo/redis";
 
 export const getDevices = async () => {
   const session = await auth.api.getSession({
@@ -93,3 +97,24 @@ export const deleteDevice = async (id: string) => {
     })
   }
 }
+
+export const logoutDevice = async (id: string) => {
+  const device = await prisma.device.findFirst({
+    where: {
+      id: id
+    }
+  })
+  const queue = new Queue<WhatsappJob>(QUEUE_NAME, { connection: redis })
+  await queue.add("logout", { sender: device?.body!, type: "logout" })
+  return true
+}
+
+
+
+
+
+
+
+
+
+

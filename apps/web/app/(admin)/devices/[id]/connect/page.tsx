@@ -1,11 +1,13 @@
 "use client";
-import { useState, useEffect, useRef, use } from 'react';
-import QRCode from 'react-qr-code';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { logoutDevice } from "@/actions/device";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { io, Socket } from 'socket.io-client';
-import { SocketEvent } from '@/types';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { SocketEvent, WhatsappJob } from '@repo/types';
 import Image from 'next/image';
+import { use, useEffect, useState } from 'react';
+import QRCode from 'react-qr-code';
+import { io, Socket } from 'socket.io-client';
 let socket: Socket;
 const InfoItem = ({ label, value }: { label: string, value: string }) => (
   <div className="flex justify-between items-center py-2">
@@ -51,6 +53,10 @@ const WhatsappScannerPage = ({ params }: {
       if (socket) socket.disconnect();
     };
   }, []);
+
+  const handleLogout = async () => {
+    await logoutDevice(sessionId)
+  }
   const userInfo = {
     name: "Ahgem",
     phone: "+917034983527",
@@ -113,6 +119,8 @@ const WhatsappScannerPage = ({ params }: {
               <InfoItem label="Status" value="Connected" />
               <InfoItem label="Device" value="Web Browser" />
             </div>
+            <Button onClick={handleLogout} className='flex w-full' variant={'destructive'}>Log out
+            </Button>
           </CardContent>
         </Card>
 

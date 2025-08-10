@@ -1,12 +1,12 @@
+import { prisma } from '@repo/db';
+import { phoneNumberSchema, type WhatsappJob } from "@repo/types";
 import { Job, Queue, Worker } from 'bullmq';
-import { redis } from './utils/redis';
-import { phoneNumberSchema, type WhatsappJob } from "@repo/types"
 import NodeCache from 'node-cache';
 import { startWhatsAppSession } from './lib/whatsapp';
-import logger from './utils/logger';
-import { prisma } from '@repo/db';
 import { sleep } from './utils/common';
 import { QUEUE_NAME } from './utils/constants';
+import logger from './utils/logger';
+import { redis } from './utils/redis';
 export const sessions = new Map();
 export const msgRetryCounterCache = new NodeCache();
 setInterval(() => {
@@ -15,10 +15,11 @@ setInterval(() => {
 new Worker<WhatsappJob>(QUEUE_NAME, async (job: Job<WhatsappJob>) => {
   logger.info(`Processing job: ${job.name} for session: ${job.data.sender}`);
   switch (job.data.type) {
-    case 'connect-whatsapp':
+    case 'connect-whatsapp': {
       await startWhatsAppSession(job.data.sender);
       break;
-    case 'send-message':
+    }
+    case 'send-message': {
       const { sender, receiver, message, noDelay = false } = job.data
       const { success, data: validatedSender } = phoneNumberSchema.safeParse(sender);
       if (success === false) {
@@ -62,7 +63,20 @@ new Worker<WhatsappJob>(QUEUE_NAME, async (job: Job<WhatsappJob>) => {
         throw new Error(`Session ${sender} not found. Cannot send message.`);
       }
       break;
-
+    }
+    case 'logout': {
+      const { sender } = job.data
+      const { success, data: validatedSender } = phoneNumberSchema.safeParse(sender);
+      if (success === false) {
+        logger.error(`Invalid sender number: ${sender}`);
+        break;
+      }
+      const sock = sessions.get(validatedSender);
+      if (sock) {
+        await sock.logout()
+      }
+      break;
+    }
   }
 }, { connection: redis });
 
