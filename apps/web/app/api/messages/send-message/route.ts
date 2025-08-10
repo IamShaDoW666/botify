@@ -1,5 +1,4 @@
 import { QUEUE_NAME } from "@/lib/constants/global";
-import { prisma } from "@repo/db"
 import { redis } from "@repo/redis";
 import { WhatsappJob } from "@repo/types";
 import { Queue } from "bullmq";
@@ -11,7 +10,7 @@ export async function POST(request: Request) {
     connection: redis
   })
   await queue.add('send-message', {
-    sender: '+' + body.sender,
+    sender: body.sender,
     receiver: body.number,
     message: body.text,
     type: 'send-message',

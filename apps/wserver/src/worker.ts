@@ -1,6 +1,6 @@
 import { Job, Queue, Worker } from 'bullmq';
 import { redis } from './utils/redis';
-import type { WhatsappJob } from "@repo/types"
+import { phoneNumberSchema, type WhatsappJob } from "@repo/types"
 import NodeCache from 'node-cache';
 import { startWhatsAppSession } from './lib/whatsapp';
 import logger from './utils/logger';
@@ -20,11 +20,15 @@ new Worker<WhatsappJob>(QUEUE_NAME, async (job: Job<WhatsappJob>) => {
       break;
     case 'send-message':
       const { sender, receiver, message, noDelay = false } = job.data
-      console.log(sessions)
-      const sock = sessions.get(sender);
+      const { success, data: validatedSender } = phoneNumberSchema.safeParse(sender);
+      if (success === false) {
+        logger.error(`Invalid sender number: ${sender}`);
+        break;
+      }
+      const sock = sessions.get(validatedSender);
       if (sock) {
         try {
-          console.log(`Sending message to ${receiver} from session ${sender}`);
+          console.log(`Sending message to ${receiver} from session ${validatedSender}`);
           //TODO: Good place to add delay
           if (!noDelay) {
             const randomDelay = Math.floor(Math.random() * 1000) + 500; // Random delay between 500ms and 1500ms
@@ -35,7 +39,19 @@ new Worker<WhatsappJob>(QUEUE_NAME, async (job: Job<WhatsappJob>) => {
           const response = await sock.sendMessage(result ? result[0].jid : "", {
             text: message,
           });
-          console.log(sock, result);
+          if (response) {
+            await prisma.device.update({
+              data: {
+                messagesSent: {
+                  increment: 1,
+                }
+              },
+              where: {
+                body: validatedSender
+              }
+            })
+          }
+          console.log(sock, result, response);
         } catch (error) {
           console.error('Failed to send message:', error);
           throw error; // Fail the job so it can be retried

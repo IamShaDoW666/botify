@@ -13,7 +13,8 @@
     "generate": "turbo run generate",
     "db:migrate:dev": "turbo run db:migrate:dev",
     "db:push": "turbo run db:push",
-    "db:generate": "turbo run db:generate --filter=db"
+    "db:generate": "turbo run db:generate --filter=db",
+    "studio": "turbo run studio"
   },
   "devDependencies": {
     "turbo": "latest"
