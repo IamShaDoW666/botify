@@ -1,0 +1,28 @@
+{
+  "name": "@repo/db",
+  "version": "1.0.0",
+  "scripts": {
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "db:seed": "tsx src/seed.ts",
+    "dev": "tsup prisma.ts --watch",
+    "format": "prisma format",
+    "generate": "prisma generate",
+    "studio": "prisma studio",
+    "postinstall": "prisma generate"
+  },
+  "exports": {
+    ".": "./prisma.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@repo/typescript-config": "workspace:^",
+    "prisma": "^6.5.0",
+    "typescript": "^5",
+    "tsup": "^8.0.2"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@repo/redis",
+  "private": true,
+  "scripts": {
+    "dev": "tsup redis.ts --watch"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "exports": {
+    ".": "./redis.ts"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "ioredis": "^5.7.0"
+  }
+}
