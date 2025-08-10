@@ -1,0 +1,95 @@
+{
+  "node": {
+    "7f020f7db523ca6725dc623b6a309d003f7803dfb4": {
+      "workers": {
+        "app/(admin)/devices/[id]/connect/page": {
+          "moduleId": "(action-browser)/../../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fdevice.ts%22%2C%5B%7B%22id%22%3A%227f020f7db523ca6725dc623b6a309d003f7803dfb4%22%2C%22exportedName%22%3A%22addDevice%22%7D%2C%7B%22id%22%3A%227f5a6332075aa5ea28bd5ddd9b9c92050dbd61a959%22%2C%22exportedName%22%3A%22deleteDevice%22%7D%2C%7B%22id%22%3A%227f93dfccae86493c7dc62b82670df93339560b0324%22%2C%22exportedName%22%3A%22getDevices%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        },
+        "app/(admin)/dashboard/page": {
+          "moduleId": "(action-browser)/../../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fdevice.ts%22%2C%5B%7B%22id%22%3A%227f020f7db523ca6725dc623b6a309d003f7803dfb4%22%2C%22exportedName%22%3A%22addDevice%22%7D%2C%7B%22id%22%3A%227f5a6332075aa5ea28bd5ddd9b9c92050dbd61a959%22%2C%22exportedName%22%3A%22deleteDevice%22%7D%2C%7B%22id%22%3A%227f93dfccae86493c7dc62b82670df93339560b0324%22%2C%22exportedName%22%3A%22getDevices%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        },
+        "app/(admin)/devices/page": {
+          "moduleId": "(rsc)/../../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fdevice.ts%22%2C%5B%7B%22id%22%3A%227f020f7db523ca6725dc623b6a309d003f7803dfb4%22%2C%22exportedName%22%3A%22addDevice%22%7D%2C%7B%22id%22%3A%227f5a6332075aa5ea28bd5ddd9b9c92050dbd61a959%22%2C%22exportedName%22%3A%22deleteDevice%22%7D%2C%7B%22id%22%3A%227f93dfccae86493c7dc62b82670df93339560b0324%22%2C%22exportedName%22%3A%22getDevices%22%7D%5D%5D%5D&__client_imported__=!",
+          "async": false
+        },
+        "app/(admin)/send-message/page": {
+          "moduleId": "(action-browser)/../../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fdevice.ts%22%2C%5B%7B%22id%22%3A%227f020f7db523ca6725dc623b6a309d003f7803dfb4%22%2C%22exportedName%22%3A%22addDevice%22%7D%2C%7B%22id%22%3A%227f5a6332075aa5ea28bd5ddd9b9c92050dbd61a959%22%2C%22exportedName%22%3A%22deleteDevice%22%7D%2C%7B%22id%22%3A%227f93dfccae86493c7dc62b82670df93339560b0324%22%2C%22exportedName%22%3A%22getDevices%22%7D%5D%5D%2C%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fmessage.ts%22%2C%5B%7B%22id%22%3A%227f3fd8523220f6339c9ca937094ad8b46173f52e2b%22%2C%22exportedName%22%3A%22sendMessage%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/(admin)/devices/[id]/connect/page": "action-browser",
+        "app/(admin)/dashboard/page": "action-browser",
+        "app/(admin)/devices/page": "rsc",
+        "app/(admin)/send-message/page": "action-browser"
+      }
+    },
+    "7f5a6332075aa5ea28bd5ddd9b9c92050dbd61a959": {
+      "workers": {
+        "app/(admin)/devices/[id]/connect/page": {
+          "moduleId": "(action-browser)/../../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fdevice.ts%22%2C%5B%7B%22id%22%3A%227f020f7db523ca6725dc623b6a309d003f7803dfb4%22%2C%22exportedName%22%3A%22addDevice%22%7D%2C%7B%22id%22%3A%227f5a6332075aa5ea28bd5ddd9b9c92050dbd61a959%22%2C%22exportedName%22%3A%22deleteDevice%22%7D%2C%7B%22id%22%3A%227f93dfccae86493c7dc62b82670df93339560b0324%22%2C%22exportedName%22%3A%22getDevices%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        },
+        "app/(admin)/dashboard/page": {
+          "moduleId": "(action-browser)/../../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fdevice.ts%22%2C%5B%7B%22id%22%3A%227f020f7db523ca6725dc623b6a309d003f7803dfb4%22%2C%22exportedName%22%3A%22addDevice%22%7D%2C%7B%22id%22%3A%227f5a6332075aa5ea28bd5ddd9b9c92050dbd61a959%22%2C%22exportedName%22%3A%22deleteDevice%22%7D%2C%7B%22id%22%3A%227f93dfccae86493c7dc62b82670df93339560b0324%22%2C%22exportedName%22%3A%22getDevices%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        },
+        "app/(admin)/devices/page": {
+          "moduleId": "(rsc)/../../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fdevice.ts%22%2C%5B%7B%22id%22%3A%227f020f7db523ca6725dc623b6a309d003f7803dfb4%22%2C%22exportedName%22%3A%22addDevice%22%7D%2C%7B%22id%22%3A%227f5a6332075aa5ea28bd5ddd9b9c92050dbd61a959%22%2C%22exportedName%22%3A%22deleteDevice%22%7D%2C%7B%22id%22%3A%227f93dfccae86493c7dc62b82670df93339560b0324%22%2C%22exportedName%22%3A%22getDevices%22%7D%5D%5D%5D&__client_imported__=!",
+          "async": false
+        },
+        "app/(admin)/send-message/page": {
+          "moduleId": "(action-browser)/../../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fdevice.ts%22%2C%5B%7B%22id%22%3A%227f020f7db523ca6725dc623b6a309d003f7803dfb4%22%2C%22exportedName%22%3A%22addDevice%22%7D%2C%7B%22id%22%3A%227f5a6332075aa5ea28bd5ddd9b9c92050dbd61a959%22%2C%22exportedName%22%3A%22deleteDevice%22%7D%2C%7B%22id%22%3A%227f93dfccae86493c7dc62b82670df93339560b0324%22%2C%22exportedName%22%3A%22getDevices%22%7D%5D%5D%2C%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fmessage.ts%22%2C%5B%7B%22id%22%3A%227f3fd8523220f6339c9ca937094ad8b46173f52e2b%22%2C%22exportedName%22%3A%22sendMessage%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/(admin)/devices/[id]/connect/page": "action-browser",
+        "app/(admin)/dashboard/page": "action-browser",
+        "app/(admin)/devices/page": "rsc",
+        "app/(admin)/send-message/page": "action-browser"
+      }
+    },
+    "7f93dfccae86493c7dc62b82670df93339560b0324": {
+      "workers": {
+        "app/(admin)/devices/[id]/connect/page": {
+          "moduleId": "(action-browser)/../../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fdevice.ts%22%2C%5B%7B%22id%22%3A%227f020f7db523ca6725dc623b6a309d003f7803dfb4%22%2C%22exportedName%22%3A%22addDevice%22%7D%2C%7B%22id%22%3A%227f5a6332075aa5ea28bd5ddd9b9c92050dbd61a959%22%2C%22exportedName%22%3A%22deleteDevice%22%7D%2C%7B%22id%22%3A%227f93dfccae86493c7dc62b82670df93339560b0324%22%2C%22exportedName%22%3A%22getDevices%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        },
+        "app/(admin)/dashboard/page": {
+          "moduleId": "(action-browser)/../../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fdevice.ts%22%2C%5B%7B%22id%22%3A%227f020f7db523ca6725dc623b6a309d003f7803dfb4%22%2C%22exportedName%22%3A%22addDevice%22%7D%2C%7B%22id%22%3A%227f5a6332075aa5ea28bd5ddd9b9c92050dbd61a959%22%2C%22exportedName%22%3A%22deleteDevice%22%7D%2C%7B%22id%22%3A%227f93dfccae86493c7dc62b82670df93339560b0324%22%2C%22exportedName%22%3A%22getDevices%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        },
+        "app/(admin)/devices/page": {
+          "moduleId": "(rsc)/../../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fdevice.ts%22%2C%5B%7B%22id%22%3A%227f020f7db523ca6725dc623b6a309d003f7803dfb4%22%2C%22exportedName%22%3A%22addDevice%22%7D%2C%7B%22id%22%3A%227f5a6332075aa5ea28bd5ddd9b9c92050dbd61a959%22%2C%22exportedName%22%3A%22deleteDevice%22%7D%2C%7B%22id%22%3A%227f93dfccae86493c7dc62b82670df93339560b0324%22%2C%22exportedName%22%3A%22getDevices%22%7D%5D%5D%5D&__client_imported__=!",
+          "async": false
+        },
+        "app/(admin)/send-message/page": {
+          "moduleId": "(action-browser)/../../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fdevice.ts%22%2C%5B%7B%22id%22%3A%227f020f7db523ca6725dc623b6a309d003f7803dfb4%22%2C%22exportedName%22%3A%22addDevice%22%7D%2C%7B%22id%22%3A%227f5a6332075aa5ea28bd5ddd9b9c92050dbd61a959%22%2C%22exportedName%22%3A%22deleteDevice%22%7D%2C%7B%22id%22%3A%227f93dfccae86493c7dc62b82670df93339560b0324%22%2C%22exportedName%22%3A%22getDevices%22%7D%5D%5D%2C%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fmessage.ts%22%2C%5B%7B%22id%22%3A%227f3fd8523220f6339c9ca937094ad8b46173f52e2b%22%2C%22exportedName%22%3A%22sendMessage%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/(admin)/devices/[id]/connect/page": "action-browser",
+        "app/(admin)/dashboard/page": "action-browser",
+        "app/(admin)/devices/page": "rsc",
+        "app/(admin)/send-message/page": "action-browser"
+      }
+    },
+    "7f3fd8523220f6339c9ca937094ad8b46173f52e2b": {
+      "workers": {
+        "app/(admin)/send-message/page": {
+          "moduleId": "(action-browser)/../../node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fdevice.ts%22%2C%5B%7B%22id%22%3A%227f020f7db523ca6725dc623b6a309d003f7803dfb4%22%2C%22exportedName%22%3A%22addDevice%22%7D%2C%7B%22id%22%3A%227f5a6332075aa5ea28bd5ddd9b9c92050dbd61a959%22%2C%22exportedName%22%3A%22deleteDevice%22%7D%2C%7B%22id%22%3A%227f93dfccae86493c7dc62b82670df93339560b0324%22%2C%22exportedName%22%3A%22getDevices%22%7D%5D%5D%2C%5B%22%2FUsers%2Fmilan%2FDesktop%2FApps%2Fbetter-auth%2Fapps%2Fweb%2Factions%2Fmessage.ts%22%2C%5B%7B%22id%22%3A%227f3fd8523220f6339c9ca937094ad8b46173f52e2b%22%2C%22exportedName%22%3A%22sendMessage%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/(admin)/send-message/page": "action-browser"
+      }
+    }
+  },
+  "edge": {},
+  "encryptionKey": "fzDlb9VBG5xxSE0odEmYA0vVYXkALal5Uy9tsaQKk8U="
+}
