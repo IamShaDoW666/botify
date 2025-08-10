@@ -18,8 +18,9 @@ import { NavUser } from "./nav-user"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select"
 import { useQuery } from "@tanstack/react-query"
 import { getDevices } from "@/actions/device"
-import { useDeviceStore } from "@/hooks/store/device-store"
+import { useDeviceStore } from "@/store/device-store"
 import { useEffect } from "react"
+import { Skeleton } from "./ui/skeleton"
 
 export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { device: currentDevice, setDevice, setInitialState } = useDeviceStore();
@@ -58,21 +59,24 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          <SidebarMenuItem>
-            <Select onValueChange={(val) => setDevice(val)} defaultValue={currentDevice!}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select Device" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Devices</SelectLabel>
-                  {devices?.map((device) => (
-                    (<SelectItem value={device.body} key={device.id} >{device.body}</SelectItem>)
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </SidebarMenuItem>
+          {currentDevice ? (
+            <SidebarMenuItem>
+              <Select onValueChange={(val) => setDevice(val)} defaultValue={currentDevice}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Device" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Devices</SelectLabel>
+                    {devices?.map((device) => (
+                      (<SelectItem value={device.body} key={device.id} >{device.body}</SelectItem>)
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </SidebarMenuItem>) : <SidebarMenuItem>
+            <Skeleton className="w-full h-9" />
+          </SidebarMenuItem>}
           <SidebarMenuItem>
             <SidebarMenuButton isActive={pathname.startsWith('/send-message')} size="lg">
               <Link href="/send-message" className="flex items-center gap-3">

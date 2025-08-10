@@ -1,6 +1,6 @@
 import { Job, Queue, Worker } from 'bullmq';
 import { redis } from './utils/redis';
-import type { WhatsappJob } from './types/job'
+import type { WhatsappJob } from "@repo/types"
 import NodeCache from 'node-cache';
 import { startWhatsAppSession } from './lib/whatsapp';
 import logger from './utils/logger';

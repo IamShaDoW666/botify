@@ -10,6 +10,7 @@
     "apps/socket": {
       "name": "socket",
       "dependencies": {
+        "@repo/db": "workspace:*",
         "bullmq": "^5.56.9",
         "dotenv": "^17.2.1",
         "socket.io": "^4.8.1",
@@ -161,8 +162,21 @@
     "packages/redis": {
       "name": "@repo/redis",
       "dependencies": {
+        "@repo/typescript-config": "workspace:*",
         "ioredis": "^5.7.0",
-        "tsup": "^8.5.0",
+      },
+      "devDependencies": {
+        "@types/bun": "latest",
+      },
+      "peerDependencies": {
+        "typescript": "^5",
+      },
+    },
+    "packages/types": {
+      "name": "@repo/types",
+      "dependencies": {
+        "@repo/typescript-config": "workspace:*",
+        "ioredis": "^5.7.0",
       },
       "devDependencies": {
         "@types/bun": "latest",
@@ -562,6 +576,8 @@
     "@repo/db": ["@repo/db@workspace:packages/db"],
 
     "@repo/redis": ["@repo/redis@workspace:packages/redis"],
+
+    "@repo/types": ["@repo/types@workspace:packages/types"],
 
     "@repo/typescript-config": ["@repo/typescript-config@workspace:packages/typescript-config"],
 

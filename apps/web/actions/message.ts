@@ -1,8 +1,9 @@
 "use server"
 
 import { QUEUE_NAME } from "@/lib/constants/global"
-import { redis } from "@/lib/redis";
-import { phoneNumberSchema, sendMessageSchema, WhatsappJob } from "@/types";
+import { redis } from "@repo/redis"
+import { phoneNumberSchema, sendMessageSchema } from "@/types";
+import { WhatsappJob } from "@repo/types";
 import { Queue } from "bullmq"
 import { NextResponse } from "next/server";
 import z from "zod";

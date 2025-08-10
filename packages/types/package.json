@@ -1,14 +1,14 @@
 {
-  "name": "@repo/redis",
+  "name": "@repo/types",
   "private": true,
   "scripts": {
-    "dev": "tsup redis.ts --watch"
+    "dev": "tsup types.ts --watch"
   },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "exports": {
-    ".": "./redis.ts"
+    ".": "./types.ts"
   },
   "peerDependencies": {
     "typescript": "^5"

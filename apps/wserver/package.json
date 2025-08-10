@@ -1,5 +1,5 @@
 {
-  "name": "wserver",
+  "name": "@botify/wserver",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -49,6 +49,6 @@
     "qrcode-terminal": "^0.12.0",
     "socket.io": "^4.8.1",
     "zod": "^3.25.76",
-    "@repo/db": "*"
+    "@repo/db": "workspace:*"
   }
 }
