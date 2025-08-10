@@ -4,9 +4,8 @@ import type { WhatsappJob } from "@repo/types"
 import NodeCache from 'node-cache';
 import { startWhatsAppSession } from './lib/whatsapp';
 import logger from './utils/logger';
-import prisma from './utils/db';
+import { prisma } from '@repo/db';
 import { sleep } from './utils/common';
-import { Blast } from '@repo/db';
 import { QUEUE_NAME } from './utils/constants';
 export const sessions = new Map();
 export const msgRetryCounterCache = new NodeCache();

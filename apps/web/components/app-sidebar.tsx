@@ -1,5 +1,6 @@
 "use client"
 
+import { getConnectedDevices } from "@/actions/device"
 import {
   Sidebar,
   SidebarContent,
@@ -10,23 +11,22 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import { useDeviceStore } from "@/store/device-store"
+import { useQuery } from "@tanstack/react-query"
 import { LayoutDashboard, Send, TabletSmartphoneIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useEffect } from "react"
 import Logo from "./logo"
 import { NavUser } from "./nav-user"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select"
-import { useQuery } from "@tanstack/react-query"
-import { getDevices } from "@/actions/device"
-import { useDeviceStore } from "@/store/device-store"
-import { useEffect } from "react"
 import { Skeleton } from "./ui/skeleton"
 
 export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { device: currentDevice, setDevice, setInitialState } = useDeviceStore();
   const { data: devices } = useQuery({
     queryKey: ['devices'],
-    queryFn: getDevices,
+    queryFn: getConnectedDevices,
   });
   useEffect(() => {
     setInitialState(devices?.map((device) => device.body) || []);

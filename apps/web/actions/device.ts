@@ -24,6 +24,24 @@ export const getDevices = async () => {
   return devices;
 }
 
+export const getConnectedDevices = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers()
+  })
+  if (!session?.user) {
+    throw new Error("User not authenticated");
+  }
+
+  const devices = await prisma.device.findMany({
+    where: {
+      userId: session.user.id,
+      status: "Connected"
+    }
+  })
+
+  return devices;
+}
+
 export const addDevice = async (data: DeviceCreateValues) => {
   const { number } = data;
   const session = await auth.api.getSession({

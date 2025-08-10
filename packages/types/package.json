@@ -14,7 +14,9 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@repo/typescript-config": "workspace:*",
     "ioredis": "^5.7.0",
-    "@repo/typescript-config": "workspace:*"
+    "libphonenumber-js": "^1.12.10",
+    "zod": "^4.0.17"
   }
 }

@@ -1,7 +1,7 @@
 
 import { Queue } from "bullmq";
 import { redis } from "./utils/redis";
-import { WhatsappJob } from "./types/job";
+import type { WhatsappJob } from "@repo/types";
 import { QUEUE_NAME } from "./utils/constants";
 
 const queue = new Queue<WhatsappJob>(QUEUE_NAME, {
