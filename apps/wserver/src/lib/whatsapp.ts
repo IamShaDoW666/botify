@@ -67,10 +67,19 @@ export async function startWhatsAppSession(number: string) {
         await updateDeviceStatus(number, "Disconnected");
         break;
       case 'open':
-        const profile = await sock.profilePictureUrl(sock.user?.id!)
-        const data = {
-          event: "OPEN",
-          profile: profile,
+        let data;
+        try {
+          const profile = await sock.profilePictureUrl(sock.user?.id!)
+          data = {
+            event: "OPEN",
+            profile: profile,
+          }
+        } catch (error) {
+          console.error("Error fetching profile picture:", error);
+          data = {
+            event: "OPEN",
+            profile: "https://avatar.iran.liara.run/public/40",
+          }
         }
         await updateDeviceStatus(number, "Connected");
         const res = await redis.publish(`qr:${number}`, JSON.stringify(data));

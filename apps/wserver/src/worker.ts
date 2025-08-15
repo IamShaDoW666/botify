@@ -77,6 +77,36 @@ new Worker<WhatsappJob>(QUEUE_NAME, async (job: Job<WhatsappJob>) => {
       }
       break;
     }
+
+    case 'campaign': {
+      const { sender, campaignId } = job.data
+      const campaign = await prisma.campaign.findFirst({
+        where: {
+          id: campaignId
+        },
+        include: {
+          blasts: {
+            include: {
+              contact: true
+            }
+          }
+        }
+      })
+      if (!campaign) {
+        break;
+      }
+      const queue = new Queue<WhatsappJob>(QUEUE_NAME, {
+        connection: redis,
+      })
+      campaign.blasts.map(async (blast) => {
+        await queue.add("send-message", {
+          type: 'send-message',
+          sender: sender,
+          receiver: blast.contact.phone,
+          message: campaign.message ?? "Default"
+        })
+      })
+    }
   }
 }, { connection: redis });
 

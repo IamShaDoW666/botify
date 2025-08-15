@@ -48,12 +48,19 @@ interface SendMessageJob {
   message: string;
 }
 
+
+interface CampaignJob {
+  type: 'campaign';
+  sender: string;
+  campaignId: string
+}
+
 interface LogoutWhatsappJob {
   type: 'logout';
   sender: string;
 }
 
-export type WhatsappJob = ConnectWhatsappJob | SendMessageJob | LogoutWhatsappJob;
+export type WhatsappJob = ConnectWhatsappJob | SendMessageJob | LogoutWhatsappJob | CampaignJob;
 
 export type SocketEvent = {
   event: "OPEN" | "QR" | "LOGOUT"

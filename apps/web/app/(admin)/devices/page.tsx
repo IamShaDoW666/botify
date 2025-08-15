@@ -20,9 +20,6 @@ export default async function Devices() {
       userId: user?.id, // Replace with the actual user ID or context
     }
   })
-  const handleDeleteDevice = async (id: string) => {
-    await deleteDevice(id)
-  }
   return (
     <div className="min-h-screen w-full  p-4 sm:p-6 lg:p-8 font-sans">
       <div className="max-w-7xl mx-auto">
@@ -67,7 +64,7 @@ export default async function Devices() {
             {/* Devices Table */}
             <div className="overflow-x-auto p-4">
               <Table>
-                <TableHeader>
+                <TableHeader className='border'>
                   <TableRow>
                     <TableHead className="w-[150px]">Number</TableHead>
                     <TableHead>Webhook</TableHead>

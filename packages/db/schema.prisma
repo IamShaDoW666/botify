@@ -111,9 +111,10 @@ model Blast {
   type        BlastType
   messageType MessageType
   status      BlastStatus @default(Pending)
-  campaign    Campaign?   @relation(fields: [campaignId], references: [id])
+  campaign    Campaign?   @relation(fields: [campaignId], references: [id], onDelete: Cascade)
   campaignId  String?
-  contactId   String?
+  contactId   String
+  contact     Contact     @relation(fields: [contactId], references: [id])
 }
 
 model Contact {
@@ -126,6 +127,7 @@ model Contact {
   user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   contactGroup   ContactGroup @relation(fields: [contactGroupId], references: [id])
   contactGroupId String
+  blast          Blast[]
 }
 
 model ContactGroup {
@@ -145,6 +147,7 @@ model Campaign {
   userId       String
   campaignType MessageType
   description  String?
+  message      String?
   blasts       Blast[]
   user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   scheduledAt  DateTime?
@@ -153,7 +156,7 @@ model Campaign {
 }
 
 model Autoreply {
-    id String @id @default(uuid())
-    keyword String
-    reply String
-  }
+  id      String @id @default(uuid())
+  keyword String
+  reply   String
+}

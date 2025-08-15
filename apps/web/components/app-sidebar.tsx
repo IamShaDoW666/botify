@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sidebar"
 import { useDeviceStore } from "@/store/device-store"
 import { useQuery } from "@tanstack/react-query"
-import { LayoutDashboard, Send, TabletSmartphoneIcon } from "lucide-react"
+import { BookUser, FilePen, LayoutDashboard, Send, TabletSmartphoneIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect } from "react"
@@ -84,6 +84,26 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                   <Send />
                 </div>
                 <span className={`text-sm font-medium`}>Send Message</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton isActive={pathname.startsWith('/contacts')} size="lg">
+              <Link href="/groups" className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10">
+                  <BookUser />
+                </div>
+                <span className={`text-sm font-medium`}>Contacts</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton isActive={pathname.startsWith('/campaigns')} size="lg">
+              <Link href="/campaigns" className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10">
+                  <FilePen />
+                </div>
+                <span className={`text-sm font-medium`}>Campaigns</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
