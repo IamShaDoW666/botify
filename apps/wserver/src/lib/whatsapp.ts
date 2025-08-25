@@ -7,6 +7,7 @@ import logger from "../utils/logger";
 import { Boom } from "@hapi/boom";
 import { prisma } from '@repo/db'
 import { updateDeviceStatus } from "./helper";
+import initAutoreply from "../autoreply";
 
 export async function startWhatsAppSession(number: string) {
   logger.info(`Starting WhatsApp session for: ${number}`);
@@ -91,7 +92,7 @@ export async function startWhatsAppSession(number: string) {
   });
   sock.ev.on('creds.update', saveCreds);
   sock.ev.on('messages.upsert', async (m) => {
-    // initAutoreply(m, number)
+    initAutoreply(m, number)
   })
   return sock;
 }

@@ -12,8 +12,9 @@
     "lint": "turbo run lint",
     "generate": "turbo run generate",
     "db:migrate:dev": "turbo run db:migrate:dev",
+    "db:migrate:reset": "bun --cwd packages/db db:migrate:reset",
     "db:push": "turbo run db:push",
-    "db:generate": "turbo run db:generate --filter=db",
+    "db:seed": "turbo run db:seed",
     "studio": "turbo run studio"
   },
   "devDependencies": {

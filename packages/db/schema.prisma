@@ -104,6 +104,7 @@ model Device {
   updatedAt    DateTime     @updatedAt
   userId       String
   user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  autoreplies  Autoreply[]
 }
 
 model Blast {
@@ -156,7 +157,9 @@ model Campaign {
 }
 
 model Autoreply {
-  id      String @id @default(uuid())
-  keyword String
-  reply   String
+  id       String @id @default(uuid())
+  keyword  String
+  reply    String
+  device   Device @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  deviceId String
 }

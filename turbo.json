@@ -10,11 +10,15 @@
         "!.next/cache/**"
       ]
     },
-    "db:migrate:dev": {
+    "db:migrate:dev": {},
+    "db:migrate:reset": {
       "cache": false,
       "persistent": true
     },
     "db:push": {
+      "cache": false
+    },
+    "db:seed": {
       "cache": false
     },
     "studio": {

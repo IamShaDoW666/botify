@@ -3,6 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 
 interface DeviceState {
   device: string | null;
+  deviceId: string | null;
   devices: string[];
   setDevice: (newDevice: string) => void;
   setInitialState: (devicesFromDB: string[]) => void;
@@ -12,11 +13,11 @@ export const useDeviceStore = create<DeviceState>()(
   persist(
     (set, get) => ({
       device: null,
+      deviceId: null,
       devices: [],
       setDevice: (newDevice: string) => set({ device: newDevice }),
       setInitialState: (devicesFromDB: string[]) => {
         const { device } = get();
-        // If no device is selected (e.g., first load), set the first device from DB as default
         if (!device && devicesFromDB.length > 0) {
           set({ devices: devicesFromDB, device: devicesFromDB[0] });
         } else {
