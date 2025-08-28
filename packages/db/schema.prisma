@@ -115,7 +115,7 @@ model Blast {
   campaign    Campaign?   @relation(fields: [campaignId], references: [id], onDelete: Cascade)
   campaignId  String?
   contactId   String
-  contact     Contact     @relation(fields: [contactId], references: [id])
+  contact     Contact     @relation(fields: [contactId], references: [id], onDelete: Cascade)
 }
 
 model Contact {
@@ -126,7 +126,7 @@ model Contact {
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
   user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  contactGroup   ContactGroup @relation(fields: [contactGroupId], references: [id])
+  contactGroup   ContactGroup @relation(fields: [contactGroupId], references: [id], onDelete: Cascade)
   contactGroupId String
   blast          Blast[]
 }

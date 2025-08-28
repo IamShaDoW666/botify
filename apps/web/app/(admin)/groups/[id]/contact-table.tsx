@@ -19,13 +19,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Contact } from "@repo/db";
+import { deleteContact } from "@/actions/contact";
 export default function ContactsTable({ initialContacts }: { initialContacts: Contact[] }) {
   const [contacts, setContacts] = useState<Contact[]>(initialContacts);
   const handleEditContact = (contactId: string) => {
     alert(`Edit action for contact ID: ${contactId}`);
   };
-  const handleDeleteContact = (contactId: string) => {
+  const handleDeleteContact = async (contactId: string) => {
     if (confirm("Are you sure you want to delete this contact?")) {
+      await deleteContact({ id: contactId });
       setContacts(contacts.filter(c => c.id !== contactId));
       console.log(`Deleting contact ID: ${contactId}`);
     }

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useRedisAuthState = void 0;
+exports.deleteSessionFromRedis = deleteSessionFromRedis;
 const baileys_1 = require("baileys");
 /**
  * Stores the full authentication state in a Redis instance.
@@ -69,3 +70,19 @@ const useRedisAuthState = async (redis, sessionKey) => {
     };
 };
 exports.useRedisAuthState = useRedisAuthState;
+/**
+ * Finds and deletes all Redis keys associated with a session ID.
+ * @param {RedisClientType} redis - The Redis client instance.
+ * @param {string} sessionId - The session ID to clear.
+ */
+async function deleteSessionFromRedis(redis, sessionId) {
+    let cursor = 0;
+    let keys = [];
+    do {
+        // Scan for keys matching the session pattern
+        const reply = await redis.scan(cursor, "MATCH", `${sessionId}:*`, "COUNT", 1000);
+        keys.push(...reply[1]);
+    } while (cursor !== 0);
+    console.log(`Deleting keys for session ${sessionId}:`, keys);
+    await redis.del(keys); // Delete all found keys
+}

@@ -1,5 +1,6 @@
 import z from "zod";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { Blast } from "@repo/db"
 
 export const phoneNumberSchema = z
   .string()
@@ -44,10 +45,10 @@ interface SendMessageJob {
   type: 'send-message';
   sender: string;
   noDelay?: boolean;
+  blastId?: string;
   receiver: string;
   message: string;
 }
-
 
 interface CampaignJob {
   type: 'campaign';

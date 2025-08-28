@@ -14,6 +14,9 @@ const initAutoreply = async (upsert: IUpsert, number: string) => {
   const queue = new Queue<WhatsappJob>(QUEUE_NAME, {
     connection: redis
   });
+
+
+
   autoreplies.map((autoreply) => {
     upsert.messages.map(async (message) => {
       if (

@@ -9,6 +9,7 @@ import { WhatsappJob } from "@repo/types"
 import { Queue } from "bullmq"
 import { headers } from "next/headers"
 import z from "zod"
+import { revalidatePath } from "next/cache"
 
 export const createCampaign = async (values: z.infer<typeof createCampaignSchema>) => {
   const session = await auth.api.getSession({
@@ -55,14 +56,25 @@ export const createCampaign = async (values: z.infer<typeof createCampaignSchema
   })
 }
 
+export const deleteCampaign = async (id: string) => {
+  await prisma.campaign.delete({
+    where: {
+      id: id
+    }
+  })
+  revalidatePath("/campaigns")
+}
 
-
-
-
-
-
-
-
-
-
-
+export const updateCampaign = async (id: string, values: z.infer<typeof createCampaignSchema>) => {
+  await prisma.campaign.update({
+    where: {
+      id: id
+    },
+    data: {
+      name: values.name,
+      senderNumber: values.sender,
+      message: values.message
+    }
+  })
+  revalidatePath("/campaigns")
+}

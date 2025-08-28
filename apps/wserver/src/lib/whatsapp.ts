@@ -1,4 +1,4 @@
-import makeWASocket, { DisconnectReason, fetchLatestBaileysVersion, makeCacheableSignalKeyStore } from "baileys";
+import makeWASocket, { DisconnectReason, fetchLatestBaileysVersion, makeCacheableSignalKeyStore, WASocket } from "baileys";
 import qrcode from 'qrcode-terminal';
 import { deleteSessionFromRedis, useRedisAuthState } from "../auth/redis-auth";
 import { redis } from "../utils/redis";
@@ -9,7 +9,7 @@ import { prisma } from '@repo/db'
 import { updateDeviceStatus } from "./helper";
 import initAutoreply from "../autoreply";
 
-export async function startWhatsAppSession(number: string) {
+export async function startWhatsAppSession(number: string): Promise<WASocket> {
   logger.info(`Starting WhatsApp session for: ${number}`);
   if (sessions.has(number)) {
     logger.info(`Session for ${number} already exists.`);

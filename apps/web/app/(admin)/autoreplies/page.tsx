@@ -28,9 +28,14 @@ const AutorepliesServerComponent = async () => {
       userId: session?.user.id
     },
     include: {
-      autoreplies: true
+      autoreplies: {
+        include: {
+          device: true
+        }
+      }
     }
   })
+  console.log(JSON.stringify(devices))
   const autoreplies = devices.flatMap(device => device.autoreplies);
   return (
     <AutoreplyTable initialAutoreplies={autoreplies} />

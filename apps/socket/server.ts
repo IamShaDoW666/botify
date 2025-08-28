@@ -4,7 +4,7 @@ import { subscriber, redis } from '@repo/redis'; // Ensure you have the correct 
 import * as dotenv from 'dotenv';
 import { prisma } from "@repo/db"
 import { Queue } from 'bullmq'; // Ensure you have bullmq installed
-import { WhatsappJob } from '@/types';
+import { WhatsappJob } from '@repo/types';
 dotenv.config(); // Load environment variables from .env file
 const QUEUE_NAME: string = process.env.QUEUE_NAME || 'whatsapp-jobs';
 const SOCKET_PORT: number = parseInt(process.env.SOCKET_PORT || '3001', 10);

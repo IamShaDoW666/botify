@@ -20,7 +20,7 @@ new Worker<WhatsappJob>(QUEUE_NAME, async (job: Job<WhatsappJob>) => {
       break;
     }
     case 'send-message': {
-      const { sender, receiver, message, noDelay = false } = job.data
+      const { sender, receiver, message, blastId, noDelay = false } = job.data
       const { success, data: validatedSender } = phoneNumberSchema.safeParse(sender);
       if (success === false) {
         logger.error(`Invalid sender number: ${sender}`);
@@ -51,6 +51,16 @@ new Worker<WhatsappJob>(QUEUE_NAME, async (job: Job<WhatsappJob>) => {
                 body: validatedSender
               }
             })
+            if (blastId) {
+              const blast = await prisma.blast.update({
+                where: {
+                  id: blastId
+                },
+                data: {
+                  status: 'Sent',
+                }
+              })
+            }
           }
           console.log(sock, result, response);
         } catch (error) {
@@ -103,6 +113,7 @@ new Worker<WhatsappJob>(QUEUE_NAME, async (job: Job<WhatsappJob>) => {
           type: 'send-message',
           sender: sender,
           receiver: blast.contact.phone,
+          blastId: blast.id,
           message: campaign.message ?? "Default"
         })
       })

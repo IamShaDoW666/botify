@@ -6,8 +6,8 @@ metadata:
     io.kubernetes.cri-o.SandboxID/redisdb-podified: 7d3cedfd93b2c9db59cbc54900ce7d0fd06c28b25214ed48ff3fa81f0417deb9
   creationTimestamp: "2025-08-15T16:47:21Z"
   labels:
-    app: botfiy
-  name: botfiy
+    app: botify
+  name: botify
 spec:
   containers:
   - args:

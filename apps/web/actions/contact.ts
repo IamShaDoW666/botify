@@ -19,6 +19,17 @@ export const addContact = async ({ name, phone, groupId }: { name: string, phone
   })
 }
 
+export const deleteContact = async ({ id }: { id: string }) => {
+  const session = await auth.api.getSession({
+    headers: await headers()
+  })
+  const data = await prisma.contact.delete({
+    where: {
+      id: id,
+    }
+  })
+}
+
 export const addContactGroup = async ({ name }: { name: string }) => {
   const session = await auth.api.getSession({
     headers: await headers()

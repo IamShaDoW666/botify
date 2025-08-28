@@ -118,12 +118,3 @@ export default function CampaignForm({ contactGroups }: { contactGroups: Contact
     </Form>
   );
 }
-
-
-
-
-
-
-
-
-
