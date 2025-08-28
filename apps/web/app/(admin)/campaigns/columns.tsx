@@ -33,12 +33,12 @@ import { toast } from "sonner"
 
 export const columns: ColumnDef<Campaign>[] = [
   {
-    accessorKey: "name",
-    header: "Name",
+    header: "#",
+    cell: ({ row }) => <div className="text-left font-medium">{row.index + 1}</div>,
   },
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "name",
+    header: "Name",
   },
   {
     accessorKey: "createdAt",
@@ -61,6 +61,7 @@ export const columns: ColumnDef<Campaign>[] = [
   },
   {
     id: "actions",
+    header: "Actions",
     cell: function Cell({ row }) {
       const campaign = row.original
       const [isDialogOpen, setIsDialogOpen] = useState(false)
