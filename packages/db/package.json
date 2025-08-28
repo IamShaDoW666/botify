@@ -4,8 +4,9 @@
   "scripts": {
     "db:migrate:deploy": "prisma migrate deploy",
     "db:migrate:dev": "prisma migrate dev",
+    "db:migrate:reset": "prisma migrate reset",
     "db:push": "prisma db push",
-    "db:seed": "tsx src/seed.ts",
+    "db:seed": "tsx seed.ts",
     "dev": "tsup prisma.ts --watch",
     "format": "prisma format",
     "generate": "prisma generate",

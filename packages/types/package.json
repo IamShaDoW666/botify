@@ -1,0 +1,22 @@
+{
+  "name": "@repo/types",
+  "private": true,
+  "scripts": {
+    "dev": "tsup types.ts --watch"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "exports": {
+    ".": "./types.ts"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "ioredis": "^5.7.0",
+    "libphonenumber-js": "^1.12.10",
+    "zod": "^4.0.17"
+  }
+}

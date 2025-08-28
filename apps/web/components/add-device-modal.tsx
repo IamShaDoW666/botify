@@ -58,8 +58,8 @@ const AddDeviceModal = () => {
                     <FormLabel>Device Number</FormLabel>
                     <FormControl>
                       <Input {...field} placeholder="Number" />
-                      <FormMessage />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )} />
               </form>

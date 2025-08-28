@@ -104,6 +104,7 @@ model Device {
   updatedAt    DateTime     @updatedAt
   userId       String
   user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  autoreplies  Autoreply[]
 }
 
 model Blast {
@@ -111,9 +112,10 @@ model Blast {
   type        BlastType
   messageType MessageType
   status      BlastStatus @default(Pending)
-  campaign    Campaign?   @relation(fields: [campaignId], references: [id])
+  campaign    Campaign?   @relation(fields: [campaignId], references: [id], onDelete: Cascade)
   campaignId  String?
-  contactId   String?
+  contactId   String
+  contact     Contact     @relation(fields: [contactId], references: [id], onDelete: Cascade)
 }
 
 model Contact {
@@ -124,8 +126,9 @@ model Contact {
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
   user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  contactGroup   ContactGroup @relation(fields: [contactGroupId], references: [id])
+  contactGroup   ContactGroup @relation(fields: [contactGroupId], references: [id], onDelete: Cascade)
   contactGroupId String
+  blast          Blast[]
 }
 
 model ContactGroup {
@@ -145,6 +148,7 @@ model Campaign {
   userId       String
   campaignType MessageType
   description  String?
+  message      String?
   blasts       Blast[]
   user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   scheduledAt  DateTime?
@@ -153,7 +157,9 @@ model Campaign {
 }
 
 model Autoreply {
-    id String @id @default(uuid())
-    keyword String
-    reply String
-  }
+  id       String @id @default(uuid())
+  keyword  String
+  reply    String
+  device   Device @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  deviceId String
+}

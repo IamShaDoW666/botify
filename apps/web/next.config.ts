@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "**.whatsapp.net",
+      },
+      {
+        protocol: "https",
+        hostname: "**.liara.run",
       }
     ]
   }

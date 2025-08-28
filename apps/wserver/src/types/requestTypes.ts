@@ -1,4 +1,4 @@
-import type { Blast } from "@prisma/client";
+import type { Blast } from "@repo/db";
 
 export interface ISentText {
   sender: string;

@@ -1,25 +1,22 @@
-// import axios from "axios";
 import type { IUpsert } from "./types/bailey";
-import prisma from "./utils/db";
-// import log from "./utils/logger";
-// import { sendBlast } from "./utils/message";
-// import { downloadMediaMessage } from "baileys";
-// import FormData from "form-data";
-// import { generate } from "qrcode-terminal";
-// import { generateGoodMorningMessage } from "./utils/common";
 import { Queue } from "bullmq";
-import { WhatsappJob } from "./types/job";
 import { redis } from "./utils/redis";
 import { IMessage } from "./utils/message";
 import { QUEUE_NAME } from "./utils/constants";
+import { WhatsappJob } from "@repo/types";
+import { prisma } from "@repo/db";
 
 const initAutoreply = async (upsert: IUpsert, number: string) => {
-  const autoreplies = await prisma.autoreplies.findMany({
-    where: { device: number },
-  });
+  const autoreplies = (await prisma.device.findMany({
+    where: { body: number },
+    include: { autoreplies: true }
+  })).flatMap(device => device.autoreplies);
   const queue = new Queue<WhatsappJob>(QUEUE_NAME, {
     connection: redis
   });
+
+
+
   autoreplies.map((autoreply) => {
     upsert.messages.map(async (message) => {
       if (
@@ -30,12 +27,12 @@ const initAutoreply = async (upsert: IUpsert, number: string) => {
         !message.key.fromMe
       ) {
         console.log(message.message?.extendedTextMessage?.text ?? message.message?.conversation, autoreply.keyword);
-        const msg: IMessage = JSON.parse(autoreply.reply);
+        // const msg: IMessage = JSON.parse(autoreply.reply);
         await queue.add('send-message', {
           type: 'send-message',
           sender: number,
           receiver: message.key.remoteJid ?? "",
-          message: msg.text!,
+          message: autoreply.reply,
           noDelay: true
         })
       }

@@ -1,5 +1,5 @@
 {
-  "name": "socket",
+  "name": "@botify/socket",
   "module": "socket.ts",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only server.ts"
@@ -13,6 +13,7 @@
   "dependencies": {
     "bullmq": "^5.56.9",
     "dotenv": "^17.2.1",
-    "socket.io": "^4.8.1"
+    "socket.io": "^4.8.1",
+    "@repo/db": "workspace:*"
   }
 }

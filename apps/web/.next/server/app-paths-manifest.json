@@ -1,5 +1,0 @@
-{
-  "/(admin)/devices/[id]/connect/page": "app/(admin)/devices/[id]/connect/page.js",
-  "/(admin)/send-message/page": "app/(admin)/send-message/page.js",
-  "/(admin)/devices/page": "app/(admin)/devices/page.js"
-}

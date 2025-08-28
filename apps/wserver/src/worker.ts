@@ -1,13 +1,12 @@
+import { prisma } from '@repo/db';
+import { phoneNumberSchema, type WhatsappJob } from "@repo/types";
 import { Job, Queue, Worker } from 'bullmq';
-import { redis } from './utils/redis';
-import type { WhatsappJob } from './types/job'
 import NodeCache from 'node-cache';
 import { startWhatsAppSession } from './lib/whatsapp';
-import logger from './utils/logger';
-import prisma from './utils/db';
 import { sleep } from './utils/common';
-import { Blast } from '@repo/db';
 import { QUEUE_NAME } from './utils/constants';
+import logger from './utils/logger';
+import { redis } from './utils/redis';
 export const sessions = new Map();
 export const msgRetryCounterCache = new NodeCache();
 setInterval(() => {
@@ -16,16 +15,21 @@ setInterval(() => {
 new Worker<WhatsappJob>(QUEUE_NAME, async (job: Job<WhatsappJob>) => {
   logger.info(`Processing job: ${job.name} for session: ${job.data.sender}`);
   switch (job.data.type) {
-    case 'connect-whatsapp':
+    case 'connect-whatsapp': {
       await startWhatsAppSession(job.data.sender);
       break;
-    case 'send-message':
-      const { sender, receiver, message, noDelay = false } = job.data
-      console.log(sessions)
-      const sock = sessions.get(sender);
+    }
+    case 'send-message': {
+      const { sender, receiver, message, blastId, noDelay = false } = job.data
+      const { success, data: validatedSender } = phoneNumberSchema.safeParse(sender);
+      if (success === false) {
+        logger.error(`Invalid sender number: ${sender}`);
+        break;
+      }
+      const sock = sessions.get(validatedSender);
       if (sock) {
         try {
-          console.log(`Sending message to ${receiver} from session ${sender}`);
+          console.log(`Sending message to ${receiver} from session ${validatedSender}`);
           //TODO: Good place to add delay
           if (!noDelay) {
             const randomDelay = Math.floor(Math.random() * 1000) + 500; // Random delay between 500ms and 1500ms
@@ -36,7 +40,29 @@ new Worker<WhatsappJob>(QUEUE_NAME, async (job: Job<WhatsappJob>) => {
           const response = await sock.sendMessage(result ? result[0].jid : "", {
             text: message,
           });
-          console.log(sock, result);
+          if (response) {
+            await prisma.device.update({
+              data: {
+                messagesSent: {
+                  increment: 1,
+                }
+              },
+              where: {
+                body: validatedSender
+              }
+            })
+            if (blastId) {
+              const blast = await prisma.blast.update({
+                where: {
+                  id: blastId
+                },
+                data: {
+                  status: 'Sent',
+                }
+              })
+            }
+          }
+          console.log(sock, result, response);
         } catch (error) {
           console.error('Failed to send message:', error);
           throw error; // Fail the job so it can be retried
@@ -47,7 +73,51 @@ new Worker<WhatsappJob>(QUEUE_NAME, async (job: Job<WhatsappJob>) => {
         throw new Error(`Session ${sender} not found. Cannot send message.`);
       }
       break;
+    }
+    case 'logout': {
+      const { sender } = job.data
+      const { success, data: validatedSender } = phoneNumberSchema.safeParse(sender);
+      if (success === false) {
+        logger.error(`Invalid sender number: ${sender}`);
+        break;
+      }
+      const sock = sessions.get(validatedSender);
+      if (sock) {
+        await sock.logout()
+      }
+      break;
+    }
 
+    case 'campaign': {
+      const { sender, campaignId } = job.data
+      const campaign = await prisma.campaign.findFirst({
+        where: {
+          id: campaignId
+        },
+        include: {
+          blasts: {
+            include: {
+              contact: true
+            }
+          }
+        }
+      })
+      if (!campaign) {
+        break;
+      }
+      const queue = new Queue<WhatsappJob>(QUEUE_NAME, {
+        connection: redis,
+      })
+      campaign.blasts.map(async (blast) => {
+        await queue.add("send-message", {
+          type: 'send-message',
+          sender: sender,
+          receiver: blast.contact.phone,
+          blastId: blast.id,
+          message: campaign.message ?? "Default"
+        })
+      })
+    }
   }
 }, { connection: redis });
 

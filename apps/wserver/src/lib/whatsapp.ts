@@ -1,4 +1,4 @@
-import makeWASocket, { DisconnectReason, fetchLatestBaileysVersion, makeCacheableSignalKeyStore } from "baileys";
+import makeWASocket, { DisconnectReason, fetchLatestBaileysVersion, makeCacheableSignalKeyStore, WASocket } from "baileys";
 import qrcode from 'qrcode-terminal';
 import { deleteSessionFromRedis, useRedisAuthState } from "../auth/redis-auth";
 import { redis } from "../utils/redis";
@@ -7,8 +7,9 @@ import logger from "../utils/logger";
 import { Boom } from "@hapi/boom";
 import { prisma } from '@repo/db'
 import { updateDeviceStatus } from "./helper";
+import initAutoreply from "../autoreply";
 
-export async function startWhatsAppSession(number: string) {
+export async function startWhatsAppSession(number: string): Promise<WASocket> {
   logger.info(`Starting WhatsApp session for: ${number}`);
   if (sessions.has(number)) {
     logger.info(`Session for ${number} already exists.`);
@@ -67,10 +68,19 @@ export async function startWhatsAppSession(number: string) {
         await updateDeviceStatus(number, "Disconnected");
         break;
       case 'open':
-        const profile = await sock.profilePictureUrl(sock.user?.id!)
-        const data = {
-          event: "OPEN",
-          profile: profile,
+        let data;
+        try {
+          const profile = await sock.profilePictureUrl(sock.user?.id!)
+          data = {
+            event: "OPEN",
+            profile: profile,
+          }
+        } catch (error) {
+          console.error("Error fetching profile picture:", error);
+          data = {
+            event: "OPEN",
+            profile: "https://avatar.iran.liara.run/public/40",
+          }
         }
         await updateDeviceStatus(number, "Connected");
         const res = await redis.publish(`qr:${number}`, JSON.stringify(data));
@@ -82,7 +92,7 @@ export async function startWhatsAppSession(number: string) {
   });
   sock.ev.on('creds.update', saveCreds);
   sock.ev.on('messages.upsert', async (m) => {
-    // initAutoreply(m, number)
+    initAutoreply(m, number)
   })
   return sock;
 }
