@@ -58,5 +58,6 @@ This is a monorepo for a WhatsApp automation tool called Botify. It's built with
 *   **Linting:** ESLint is used for linting. Run `bun lint` to check for issues.
 *   **Types:** Shared types are located in the `packages/types` workspace.
 
-##> [!IMPORTANT]
+## [!IMPORTANT]
 1. Always use ShadCN components for UI consistency.
+2. Always make sure the commit messages is clear and concise.

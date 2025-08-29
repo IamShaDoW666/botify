@@ -37,8 +37,13 @@ export const columns: ColumnDef<Campaign>[] = [
     cell: ({ row }) => <div className="text-left font-medium">{row.index + 1}</div>,
   },
   {
-    accessorKey: "name",
     header: "Name",
+    accessorKey: "name",
+    cell: ({ row }) => {
+      return <Link legacyBehavior href={`/campaigns/${row.original.id}`}>
+        <Button variant={'link'}>{row.original.name}</Button>
+      </Link>
+    },
   },
   {
     accessorKey: "createdAt",
